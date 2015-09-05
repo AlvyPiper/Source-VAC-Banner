@@ -6,6 +6,7 @@ In this, we bytepatch CreateMove, PaintTraverse, BeginScene, and EndScene, if th
 Credits:
 CodeProject, helping me understand MSDetours.
 UnknownCheats, tutorial on patching VTables with MSDetours.
+nanocat, CreateInterface template
 vec, wherever he C+P'd the GetD3D device stuff from.
 aethi, dumpass who posted this on facepunch for me
 sonador, being so dumb it inspired me to make this
