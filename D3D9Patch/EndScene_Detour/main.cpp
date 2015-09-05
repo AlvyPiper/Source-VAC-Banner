@@ -85,7 +85,7 @@ void doinject()
 	DetourAttach(&(void*&) org_endscene, hk_endscene); //replace original endscene with hooked endscene
 	DetourAttach(&(void*&) org_painttraverse, hk_painttraverse); //replace original painttraverse with hooked painttraverse
 	DetourAttach(&(void*&) org_createmove, hk_createmove); //replace original createmove with hooked createmove
-	DetourTransactionCommit(); //call DetourTransactionCommit() will make the detour do its job, also apparently checks for success/failure(?)
+	DetourTransactionCommit(); //calling DetourTransactionCommit() will make the detour do its job, also apparently checks for success/failure(?)
 }
 
 bool __stdcall DllMain(HINSTANCE hInstance, DWORD dwReasonOfCall, LPVOID lpReserved)
