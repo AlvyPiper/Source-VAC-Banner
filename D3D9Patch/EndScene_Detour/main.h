@@ -20,3 +20,15 @@
 #include "src/detver.h"
 
 #pragma comment( lib, "C:\\Program Files (x86)\\Microsoft Research\\Detours Express 3.0\\lib.X86\\detours.lib" )
+
+template<typename I>
+inline I CreateInterface(const char *dll, const char *name)
+{
+	return (I) (((void *(*)(const char *, void *))GetProcAddress(GetModuleHandle(dll), "CreateInterface"))(name, 0));
+}
+
+class IClient
+{
+public:
+	
+};
