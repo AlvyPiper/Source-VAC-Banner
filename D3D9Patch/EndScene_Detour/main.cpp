@@ -37,14 +37,14 @@ void __fastcall hk_painttraverse(void* thishook, void*, unsigned int panel, bool
 	return org_painttraverse(thishook, panel, forcerepaint, forceallow);
 }
 
-typedef HRESULT(__stdcall* BeginSceneFn)(LPDIRECT3DDEVICE9 thisdevice);
+typedef HRESULT(__thiscall* BeginSceneFn)(LPDIRECT3DDEVICE9 thisdevice);
 BeginSceneFn org_beginscene;
 HRESULT __stdcall hk_beginscene(LPDIRECT3DDEVICE9 thisdevice)
 {
 	return org_beginscene(thisdevice);
 }
 
-typedef HRESULT(__stdcall* EndSceneFn)(LPDIRECT3DDEVICE9 thisdevice);
+typedef HRESULT(__thiscall* EndSceneFn)(LPDIRECT3DDEVICE9 thisdevice);
 EndSceneFn org_endscene;
 HRESULT __stdcall hk_endscene(LPDIRECT3DDEVICE9 thisdevice)
 {
