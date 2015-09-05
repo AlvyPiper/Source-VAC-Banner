@@ -50,8 +50,8 @@ void doinject()
 
 	DetourTransactionBegin(); //initiates transaction
 	DetourUpdateThread(GetCurrentThread()); //gets the current thread to update with the transaction
-	DetourAttach(&(PVOID&) org_beginscene, hk_beginscene); //first parameter is the parameter to the function being detoured, second is replacement function
-	DetourAttach(&(PVOID&) org_endscene, hk_endscene); //replace original endscene with hooked endscene
+	DetourAttach(&(void*&) org_beginscene, hk_beginscene); //first parameter is the parameter to the function being detoured, second is replacement function
+	DetourAttach(&(void*&) org_endscene, hk_endscene); //replace original endscene with hooked endscene
 	DetourTransactionCommit(); //call DetourTransactionCommit() will make the detour do its job, also apparently checks for success/failure(?)
 }
 
