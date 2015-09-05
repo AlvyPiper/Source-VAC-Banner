@@ -26,9 +26,3 @@ inline I CreateInterface(const char *dll, const char *name)
 {
 	return (I) (((void *(*)(const char *, void *))GetProcAddress(GetModuleHandle(dll), "CreateInterface"))(name, 0));
 }
-
-class IClient
-{
-public:
-	
-};
