@@ -16,11 +16,17 @@ http://www.codeproject.com/Articles/30140/API-Hooking-with-MS-Detours
 #include "main.h"
 #include "GetD3D.h"
 
+typedef HRESULT(__stdcall* BeginSceneFn)(LPDIRECT3DDEVICE9 thisdevice);
+BeginSceneFn org_beginscene;
+HRESULT __stdcall hk_beginscene(LPDIRECT3DDEVICE9 thisdevice)
+{
+	return org_beginscene(thisdevice);
+}
+
 typedef HRESULT(__stdcall* EndSceneFn)(LPDIRECT3DDEVICE9 thisdevice);
 EndSceneFn org_endscene;
 HRESULT __stdcall hk_endscene(LPDIRECT3DDEVICE9 thisdevice)
 {
-	MessageBoxA(0, "[Inside joke about not understanding VAC]", "[Some D3D9 Hook]", 0);
 	return org_endscene(thisdevice);
 }
 
@@ -38,11 +44,14 @@ void doinject()
 	DWORD* d3dvtable = (DWORD *) device;
 	d3dvtable = (DWORD *) d3dvtable[0]; //turns pointer of device into vtable
 
+	org_beginscene = (BeginSceneFn) ((DWORD*) d3dvtable[41]); //41 is BeginScene
 	org_endscene = (EndSceneFn) ((DWORD*) d3dvtable[42]); //42 is EndScene
+
 
 	DetourTransactionBegin(); //initiates transaction
 	DetourUpdateThread(GetCurrentThread()); //gets the current thread to update with the transaction
-	DetourAttach(&(PVOID&) org_endscene, hk_endscene); //first parameter is the parameter to the function being detoured, second is replacement function
+	DetourAttach(&(PVOID&) org_beginscene, hk_beginscene); //first parameter is the parameter to the function being detoured, second is replacement function
+	DetourAttach(&(PVOID&) org_endscene, hk_endscene); //replace original endscene with hooked endscene
 	DetourTransactionCommit(); //call DetourTransactionCommit() will make the detour do its job, also apparently checks for success/failure(?)
 }
 
