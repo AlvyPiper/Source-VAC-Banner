@@ -59,7 +59,7 @@ void doinject()
 	while (GetModuleHandleA("engine.dll") == NULL || GetModuleHandleA("client.dll") == NULL)
 		Sleep(100);
 
-	client = CreateInterface<void *>("client", "VClient017");
+	client = CreateInterface<void *>("client", "VClient018");
 	panel = CreateInterface<void *>("vgui2", "VGUI_Panel009");
 
 	CD3DHook d3dinterface;
