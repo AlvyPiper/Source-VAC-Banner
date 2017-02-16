@@ -53,13 +53,10 @@ HRESULT __stdcall hk_endscene(LPDIRECT3DDEVICE9 thisdevice)
 
 void doinject()
 {
-	while (FindWindowA("Valve001", NULL) == NULL)
+	while (GetModuleHandleA("serverbrowser.dll") == NULL)
 		Sleep(100);
 
-	while (GetModuleHandleA("engine.dll") == NULL || GetModuleHandleA("client.dll") == NULL)
-		Sleep(100);
-
-	client = CreateInterface<void *>("client", "VClient017");
+	client = CreateInterface<void *>("client", "VClient018");
 	panel = CreateInterface<void *>("vgui2", "VGUI_Panel009");
 
 	CD3DHook d3dinterface;
